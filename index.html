@@ -578,7 +578,7 @@ function grab() {
   var g = function (i) { var e = el(i); return e ? e.value : null; }; var v;
   if ((v = g('fAmt')) !== null) F.amt = v; if ((v = g('fNote')) !== null) F.note = v; if ((v = g('fDate')) !== null) F.date = v; if ((v = g('fAcc')) !== null) F.acc = v;
   if ((v = g('fBill')) !== null) F.billId = v;
-  if ((v = g('fP')) !== null) F.P = v; if ((v = g('fI')) !== null) F.I = v; if ((v = g('fAP')) !== null) F.AP = v;
+  if ((v = g('fP')) !== null) F.P = v; if ((v = g('fAP')) !== null) F.AP = v;
   if (F.mode === 'inst') document.querySelectorAll('[data-item]').forEach(function (inp) {
     var id = inp.getAttribute('data-item'), on = el('ck_' + id);
     F.sel[id] = { on: on ? on.checked : false, amt: inp.value };
@@ -603,15 +603,21 @@ function drawTx() {
 function openLoanPay(x, billId, existing) {
   var b = billId ? find(S.data.bills, billId) : null;
   if (existing) F = { mode: 'loan', debtId: x.id, id: existing.id, amt: existing.amt, date: existing.date, acc: existing.acc || S.data.accounts[0] || '', note: existing.note || x.name, billId: existing.billId || '', cat: existing.cat || 'ชำระหนี้', manual: true, P: existing.principal, I: existing.interest, AP: existing.arrPaid || 0 };
-  else F = { mode: 'loan', debtId: x.id, id: '', amt: x.monthly || '', date: defDate(), acc: S.data.accounts[0] || '', note: x.name, billId: billId || '', cat: b ? b.cat : 'ชำระหนี้', manual: false, P: '', I: '', AP: 0 };
+  else {
+    var pref = lsGet('money.manual.' + x.id), man = pref === null ? x.method === M_MONTH : !!pref;
+    F = { mode: 'loan', debtId: x.id, id: '', amt: x.monthly || '', date: defDate(), acc: S.data.accounts[0] || '', note: x.name, billId: billId || '', cat: b ? b.cat : 'ชำระหนี้', manual: man, P: '', I: '', AP: 0 };
+  }
   if (!F.billId) { var lb = S.data.bills.filter(function (z) { return z.debtId === x.id; })[0]; if (lb && !existing) F.billId = lb.id; }
   drawLoanPay(); openSheet();
 }
 function loanSplit() {
   var x = debt(F.debtId), amt = parseFloat(F.amt) || 0;
-  if (F.manual) { var P = parseFloat(F.P) || 0, I = parseFloat(F.I) || 0, AP = parseFloat(F.AP) || 0; return { P: P, I: I, AP: AP, due: null, ok: Math.abs(P + I + AP - amt) < 0.01 }; }
-  var due = pendAt(x, F.date || todayStr()), I2 = Math.min(amt, due);
-  return { P: r2(amt - I2), I: r2(I2), AP: 0, due: r2(due), ok: true };
+  var due = r2(pendAt(x, F.date || todayStr())), I2 = Math.min(amt, due);
+  if (F.manual) {
+    var P = parseFloat(F.P) || 0, AP = parseFloat(F.AP) || 0, I = r2(amt - P - AP);
+    return { P: r2(P), I: I, AP: r2(AP), due: due, estP: r2(amt - I2), estI: r2(I2), arrAdd: 0, ok: F.P !== '' && F.P !== null && P >= 0 && I >= -0.004 };
+  }
+  return { P: r2(amt - I2), I: r2(I2), AP: 0, due: due, arrAdd: r2(due - I2), ok: true };
 }
 function drawLoanPay() {
   var x = debt(F.debtId), s = loanSplit();
@@ -625,10 +631,13 @@ function drawLoanPay() {
     h += splitBar(s.P, s.I);
     if ((parseFloat(F.amt) || 0) < s.due) h += '<div class="alert bad">ยอดจ่ายน้อยกว่าดอก ฿' + fmt(s.due - (parseFloat(F.amt) || 0)) + ' จะไปเป็นดอกค้าง</div>';
   } else {
-    h += '<div class="grid3"><div><label>เงินต้น</label><input id="fP" type="number" inputmode="decimal" step="0.01" value="' + esc(F.P) + '" data-live="1"></div><div><label>ดอกเบี้ย</label><input id="fI" type="number" inputmode="decimal" step="0.01" value="' + esc(F.I) + '" data-live="1"></div><div><label>ตัดดอกค้าง</label><input id="fAP" type="number" inputmode="decimal" step="0.01" value="' + esc(F.AP) + '" data-live="1"></div></div>';
-    h += s.ok ? '<div class="note">รวม ฿' + fmt(s.P + s.I + s.AP) + ' ✓</div>' : '<div class="alert bad">ต้น + ดอก + ดอกค้าง = ฿' + fmt(s.P + s.I + s.AP) + ' ไม่เท่ากับยอดจ่าย</div>';
+    h += '<div class="grid2"><div><label>เงินต้น (ตามบิล)</label><input id="fP" type="number" inputmode="decimal" step="0.01" value="' + esc(F.P) + '" placeholder="ดูจากบิล" data-live="1"></div><div><label>ตัดดอกค้าง (ถ้ามี)</label><input id="fAP" type="number" inputmode="decimal" step="0.01" value="' + esc(F.AP) + '" data-live="1"></div></div>';
+    h += '<div style="margin-top:10px">' + kv('ดอกเบี้ย (ยอดจ่าย − เงินต้น' + (s.AP ? ' − ดอกค้าง' : '') + ')', '฿' + fmt(s.I), 'intc') + kv('เงินต้นหลังจ่าย', '฿' + fmt(x.balance - s.P)) + '</div>';
+    if (F.P !== '' && F.P !== null) h += splitBar(s.P, Math.max(0, s.I));
+    if (s.I < -0.004) h += '<div class="alert bad">เงินต้น + ดอกค้าง มากกว่ายอดจ่าย</div>';
+    h += '<div class="note">แอปประมาณไว้: ต้น ฿' + fmt(s.estP) + ' / ดอก ฿' + fmt(s.estI) + ' · ใช้ตัวเลขจากบิลแทน ยอดเงินต้นในแอปจะตรงกับธนาคาร</div>';
   }
-  h += '<label style="display:flex;align-items:center;gap:8px;color:var(--text)"><input type="checkbox" id="fManual"' + (F.manual ? ' checked' : '') + ' data-chg="manual"> กรอกต้น/ดอกเองตามสลิป</label></div>';
+  h += '<label style="display:flex;align-items:center;gap:8px;color:var(--text)"><input type="checkbox" id="fManual"' + (F.manual ? ' checked' : '') + ' data-chg="manual"> กรอกเงินต้นเองตามบิล</label></div>';
   h += '<label>ผูกกับบิล</label><select id="fBill">' + optsObj(S.data.bills, F.billId) + '</select>';
   h += '<label>หมายเหตุ</label><input id="fNote" value="' + esc(F.note) + '">';
   h += '<div class="btns">' + (F.id ? '<button class="btn del" data-act="fdel">ลบ</button>' : '') + '<button class="btn" data-act="loanSave">บันทึก</button></div>';
@@ -788,9 +797,9 @@ var ACT = {
   loanSave: function () {
     grab(); var a = parseFloat(F.amt), s = loanSplit();
     if (!(a > 0)) { toast('ใส่จำนวนเงิน'); return; } if (!F.date) { toast('ใส่วันที่'); return; }
-    if (!s.ok) { toast('ต้น + ดอก + ดอกค้าง ต้องเท่ากับยอดจ่าย'); return; }
+    if (!s.ok) { toast(F.manual && (F.P === '' || F.P === null) ? 'ใส่เงินต้นตามบิล' : 'เงินต้น + ดอกค้าง ต้องไม่เกินยอดจ่าย'); return; }
     var b = F.billId ? find(S.data.bills, F.billId) : null;
-    var o = { id: F.id, date: F.date, type: 'รายจ่าย', cat: b ? b.cat : (F.cat || 'ชำระหนี้'), acc: F.acc, amt: a, note: F.note, billId: F.billId, debtId: F.debtId, principal: s.P, interest: s.I, arrPaid: s.AP };
+    var o = { id: F.id, date: F.date, type: 'รายจ่าย', cat: b ? b.cat : (F.cat || 'ชำระหนี้'), acc: F.acc, amt: a, note: F.note, billId: F.billId, debtId: F.debtId, principal: s.P, interest: s.I, arrPaid: s.AP, arrAdd: s.arrAdd };
     closeSheet(); write('saveTxn', [o, S.month]);
   },
   instSave: function () {
@@ -853,8 +862,9 @@ document.addEventListener('change', function (e) {
     drawTx(); return;
   }
   if (c === 'manual') {
-    var s = loanSplit(); F.manual = e.target.checked;
-    if (F.manual) { F.P = s.P; F.I = s.I; F.AP = 0; }
+    F.manual = e.target.checked;
+    if (!F.id) lsSet('money.manual.' + F.debtId, F.manual);
+    if (F.manual) { F.P = ''; F.AP = 0; }
     drawLoanPay(); return;
   }
   if (c === 'inst') { drawInstPay(); return; }
