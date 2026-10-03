@@ -1,6 +1,6 @@
 // Service worker: เก็บตัวแอปไว้ให้เปิดได้เร็วและเปิดได้ตอนออฟไลน์
 // (ไม่แคชข้อมูลการเงิน — ข้อมูลไปตรงที่ Google Sheets)
-const CACHE = 'money-app-v1';
+const CACHE = 'money-app-v2';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', (e) => {

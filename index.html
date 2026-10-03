@@ -15,27 +15,32 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f4f5f7;--card:#fff;--text:#1d2129;--muted:#6b7280;--line:#e5e7eb;--accent:#0f766e;--on-accent:#fff;--chip:#eef1f4;--inc:#15803d;--exp:#b91c1c;--warn:#b45309}
-@media (prefers-color-scheme: dark){:root{--bg:#0f1115;--card:#181b21;--text:#e8eaed;--muted:#9aa0a6;--line:#2a2e36;--accent:#2dd4bf;--on-accent:#0f1115;--chip:#232730;--inc:#4ade80;--exp:#f87171;--warn:#fbbf24}}
+:root{--bg:#f4f5f7;--card:#fff;--text:#1d2129;--muted:#6b7280;--line:#e5e7eb;--accent:#0f766e;--on-accent:#fff;--chip:#eef1f4;--inc:#15803d;--exp:#b91c1c;--warn:#b45309;--int:#d97706;--prin:#0f766e}
+@media (prefers-color-scheme: dark){:root{--bg:#0f1115;--card:#181b21;--text:#e8eaed;--muted:#9aa0a6;--line:#2a2e36;--accent:#2dd4bf;--on-accent:#0f1115;--chip:#232730;--inc:#4ade80;--exp:#f87171;--warn:#fbbf24;--int:#f59e0b;--prin:#2dd4bf}}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--bg)}
 body{font-family:'IBM Plex Sans Thai',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);font-size:15px;padding-bottom:calc(96px + env(safe-area-inset-bottom));-webkit-tap-highlight-color:transparent}
-header{position:sticky;top:0;z-index:5;background:var(--bg);padding:calc(12px + env(safe-area-inset-top)) 16px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;max-width:720px;margin:0 auto}
-header h1{font-size:19px;font-weight:600;white-space:nowrap}
-.hr{display:flex;align-items:center;gap:6px}
+header{position:sticky;top:0;z-index:5;background:var(--bg);padding:calc(12px + env(safe-area-inset-top)) 16px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;max-width:760px;margin:0 auto}
+header h1{font-size:19px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;display:flex;align-items:center;gap:6px}
+header h1 .back{background:none;border:0;color:var(--accent);font:inherit;font-size:22px;padding:0 4px 0 0;line-height:1}
+.hr{display:flex;align-items:center;gap:6px;flex:none}
 .ib{background:var(--card);border:1px solid var(--line);color:var(--text);width:34px;height:34px;border-radius:10px;font-size:17px;display:flex;align-items:center;justify-content:center}
-.mon span{min-width:80px;text-align:center;font-weight:600;font-size:14px}
+.mon span{min-width:76px;text-align:center;font-weight:600;font-size:14px}
 #sync{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:50;transition:width .4s,opacity .3s;opacity:0}
 #sync.on{opacity:1;width:70%;transition:width 6s cubic-bezier(.1,.6,.2,1)}
-main{padding:0 16px;max-width:720px;margin:0 auto}
+main{padding:0 16px;max-width:760px;margin:0 auto}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
 .big{font-size:28px;font-weight:700;letter-spacing:-.3px}
+.mid{font-size:21px;font-weight:700}
 .muted{color:var(--muted);font-size:13px}
+.small{font-size:12px}
 .row{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.inc{color:var(--inc)}.exp{color:var(--exp)}.warn{color:var(--warn)}
-.bar{height:8px;background:var(--chip);border-radius:99px;overflow:hidden;margin-top:6px}
-.bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.inc{color:var(--inc)}.exp{color:var(--exp)}.warn{color:var(--warn)}.intc{color:var(--int)}.princ{color:var(--prin)}
+.bar{height:8px;background:var(--chip);border-radius:99px;overflow:hidden;margin-top:6px;display:flex}
+.bar i{display:block;height:100%;background:var(--accent)}
+.bar i.int{background:var(--int)}
 .item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}
 .item:last-child{border-bottom:0}
 .grow{flex:1;min-width:0}
@@ -43,7 +48,24 @@ main{padding:0 16px;max-width:720px;margin:0 auto}
 .chk{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;flex:none;font-size:15px;color:var(--on-accent)}
 .chk.on{background:var(--accent);border-color:var(--accent)}
 .amt{font-weight:600;white-space:nowrap}
-.sec{font-size:13px;color:var(--muted);margin:16px 4px 8px;font-weight:600}
+.sec{font-size:13px;color:var(--muted);margin:18px 4px 8px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:99px;background:var(--chip);color:var(--muted);font-weight:500;white-space:nowrap}
+.tag.ok{background:var(--accent);color:var(--on-accent)}
+.tag.bad{background:var(--exp);color:var(--card)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1px solid var(--line);background:var(--chip);color:var(--text);padding:7px 12px;border-radius:99px;font:inherit;font-size:14px}
+.chips button.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tw{overflow-x:auto;margin:0 -4px}
+table{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+th{font-weight:500;color:var(--muted);text-align:right;padding:6px 4px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{text-align:right;padding:7px 4px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+tr:last-child td{border-bottom:0}
+tr.click{cursor:pointer}
+.note{font-size:13px;color:var(--muted);line-height:1.6;margin-top:10px}
+.alert{border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.6;margin-top:10px;background:var(--chip)}
+.alert.bad{background:color-mix(in srgb,var(--exp) 14%,transparent);color:var(--text)}
+.alert.good{background:color-mix(in srgb,var(--accent) 14%,transparent)}
 nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:6}
 nav button{flex:1;background:none;border:0;color:var(--muted);padding:9px 0 11px;font:inherit;font-size:12px}
 nav button b{display:block;font-size:19px;line-height:1.3;font-weight:400}
@@ -55,24 +77,23 @@ nav button.on{color:var(--accent);font-weight:600}
 @media (min-width:700px){.ov{align-items:center}.sheet{border-radius:20px}}
 label{display:block;font-size:13px;color:var(--muted);margin:12px 0 6px}
 input,select{width:100%;font:inherit;padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);min-height:44px}
+input[type=checkbox]{width:22px;height:22px;min-height:0;accent-color:var(--accent);flex:none}
 input.amtIn{font-size:26px;font-weight:700;text-align:right}
 .seg{display:grid;grid-template-columns:1fr 1fr;background:var(--chip);border-radius:12px;padding:4px}
 .seg button{border:0;background:none;padding:9px;border-radius:9px;font:inherit;color:var(--muted)}
 .seg button.on{background:var(--card);color:var(--text);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.12)}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chips button{border:1px solid var(--line);background:var(--chip);color:var(--text);padding:7px 12px;border-radius:99px;font:inherit;font-size:14px}
-.chips button.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
-.btns{display:flex;gap:10px;margin-top:18px}
+.btns{display:flex;gap:10px;margin-top:16px}
 .btn{flex:1;padding:13px;border-radius:12px;border:0;font:inherit;font-weight:600;background:var(--accent);color:var(--on-accent)}
 .btn.ghost{background:var(--chip);color:var(--text)}
 .btn.del{background:none;color:var(--exp);flex:none;padding:13px 8px}
 .link{background:none;border:0;color:var(--accent);font:inherit;font-weight:600;padding:8px 4px}
 .more{background:none;border:0;color:var(--muted);font-size:18px;padding:4px 8px;flex:none}
-.trend{display:flex;align-items:flex-end;gap:8px;height:112px;margin-top:10px}
-.trend>div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px}
+.vbars{display:flex;align-items:flex-end;gap:5px;height:120px;margin-top:10px}
+.vbars>div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;min-width:0}
+.vbars i{display:block;width:100%;max-width:26px;border-radius:5px 5px 0 0;background:var(--accent);min-height:2px}
+.vbars small{font-size:10px;color:var(--muted);white-space:nowrap}
 .pair{display:flex;align-items:flex-end;justify-content:center;gap:3px;height:86px;width:100%}
 .pair i{width:40%;max-width:14px;border-radius:4px 4px 0 0;display:block;min-height:2px}
-.trend small{font-size:11px;color:var(--muted)}
 .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
 .empty{text-align:center;color:var(--muted);padding:32px 0;line-height:1.8}
 .toast{position:fixed;left:50%;bottom:calc(160px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;z-index:30;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center}
@@ -82,8 +103,12 @@ input.amtIn{font-size:26px;font-weight:700;text-align:right}
 .setup{max-width:480px;margin:24px auto;padding:0 16px}
 .setup h2{font-size:22px;margin-bottom:6px}
 .setup ol{margin:10px 0 0 20px;color:var(--muted);font-size:14px;line-height:1.7}
-.note{font-size:13px;color:var(--muted);line-height:1.6;margin-top:12px}
 .offline{background:var(--warn);color:var(--bg);font-size:13px;text-align:center;padding:6px 12px;border-radius:10px;margin-bottom:12px}
+.irow{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.irow:last-child{border-bottom:0}
+.irow input[type=number]{width:110px;flex:none;text-align:right;min-height:38px;padding:7px 10px}
+.kv{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:4px 0}
+.kv span:first-child{color:var(--muted)}
 body.nosetup nav,body.nosetup .fab,body.nosetup header{display:none}
 </style>
 </head>
@@ -93,7 +118,7 @@ body.nosetup nav,body.nosetup .fab,body.nosetup header{display:none}
 <header>
   <h1 id="title">ภาพรวม</h1>
   <div class="hr">
-    <div class="hr mon"><button class="ib" onclick="shiftMonth(-1)" aria-label="เดือนก่อน">‹</button><span id="monLbl"></span><button class="ib" onclick="shiftMonth(1)" aria-label="เดือนถัดไป">›</button></div>
+    <div class="hr mon"><button class="ib" data-act="month" data-id="-1" aria-label="เดือนก่อน">‹</button><span id="monLbl"></span><button class="ib" data-act="month" data-id="1" aria-label="เดือนถัดไป">›</button></div>
     <button class="ib" data-act="settings" aria-label="ตั้งค่า">⚙</button>
   </div>
 </header>
@@ -109,29 +134,123 @@ body.nosetup nav,body.nosetup .fab,body.nosetup header{display:none}
 <div class="toast" id="toast"></div>
 
 <script>
-var CFG_KEY = 'money.cfg', CACHE_PREFIX = 'money.cache.';
-var S = { tab: 'home', month: '', data: null, cfg: null, stale: false };
+var CFG_KEY = 'money.cfg', CACHE_PREFIX = 'money.cache2.';
+var S = { tab: 'home', month: '', data: null, cfg: null, stale: false, detail: null, extra: 0, showAll: {} };
 var F = {};
 var MTH = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
 var TITLES = { home: 'ภาพรวม', bills: 'บิล', debts: 'หนี้สิน', tx: 'รายการ' };
+var K_LOAN = 'เงินกู้', K_INST = 'ผ่อนรายการ', M_MONTH = 'รายเดือน';
 
 /* ---------- storage ---------- */
 function lsGet(k) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch (e) { return null; } }
 function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 function lsDel(k) { try { localStorage.removeItem(k); } catch (e) {} }
-function clearCache() { try { Object.keys(localStorage).forEach(function (k) { if (k.indexOf(CACHE_PREFIX) === 0) localStorage.removeItem(k); }); } catch (e) {} }
+function clearCache() { try { Object.keys(localStorage).forEach(function (k) { if (k.indexOf('money.cache') === 0) localStorage.removeItem(k); }); } catch (e) {} }
 
 /* ---------- helpers ---------- */
 function el(id) { return document.getElementById(id); }
 function esc(s) { return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function fmt(n) { return Number(n || 0).toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+function fmt0(n) { return Math.round(Number(n || 0)).toLocaleString('th-TH'); }
+function r2(x) { return Math.round(x * 100) / 100; }
 function monLabel(m) { var p = m.split('-'); return MTH[Number(p[1]) - 1] + ' ' + (Number(p[0]) + 543); }
+function monShort(m) { var p = m.split('-'); return MTH[Number(p[1]) - 1] + ' ' + String(Number(p[0]) + 543).slice(2); }
 function dLabel(d) { if (!d) return ''; var p = d.split('-'); return Number(p[2]) + ' ' + MTH[Number(p[1]) - 1] + ' ' + (Number(p[0]) + 543); }
-function find(list, id) { return list.filter(function (x) { return x.id === id; })[0]; }
-function toast(m) { var t = el('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(function () { t.classList.remove('show'); }, 2200); }
+function dShort(d) { if (!d) return ''; var p = d.split('-'); return Number(p[2]) + ' ' + MTH[Number(p[1]) - 1] + ' ' + String(Number(p[0]) + 543).slice(2); }
+function find(list, id) { return (list || []).filter(function (x) { return x.id === id; })[0]; }
+function debt(id) { return find(S.data.debts, id); }
+function toast(m) { var t = el('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(function () { t.classList.remove('show'); }, 2400); }
 function busy(on) { el('load').style.display = on ? 'flex' : 'none'; }
 function syncing(on) { el('sync').classList.toggle('on', on); }
 function nowMonth() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2); }
+function todayStr() { return S.data ? S.data.today : new Date().toISOString().slice(0, 10); }
+function addMonths(m, k) { var p = m.split('-'); var y = Number(p[0]), mo = Number(p[1]) - 1 + k; y += Math.floor(mo / 12); mo = ((mo % 12) + 12) % 12; return y + '-' + ('0' + (mo + 1)).slice(-2); }
+function durText(n) { var y = Math.floor(n / 12), m = n % 12; return (y ? y + ' ปี ' : '') + (m ? m + ' เดือน' : (y ? '' : '0 เดือน')); }
+
+/* ---------- loan math (ต้องตรงกับฝั่ง Apps Script) ---------- */
+function isLeap(y) { return y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0); }
+function dayNum(s) { var p = s.split('-').map(Number); return Math.round(Date.UTC(p[0], p[1] - 1, p[2]) / 86400000); }
+function dayStr(n) { return new Date(n * 86400000).toISOString().slice(0, 10); }
+function dim(y, m) { return new Date(Date.UTC(y, m, 0)).getUTCDate(); }
+function rateAt(d, date) { var l = d.rates || []; if (!l.length) return d.rate0; var r = l[0][1]; for (var i = 0; i < l.length; i++) if (l[i][0] <= date) r = l[i][1]; return Number(r) || 0; }
+function accrue(d, bal, from, to) {
+  if (!(bal > 0) || !from || !to || to <= from) return 0;
+  var t = dayNum(from), end = dayNum(to), s = 0;
+  while (t < end) { t++; var ds = dayStr(t), y = Number(ds.slice(0, 4)); s += bal * rateAt(d, ds) / 100 / (isLeap(y) ? 366 : 365); }
+  return s;
+}
+function monthInt(d, bal, date) { var y = Number(date.slice(0, 4)), m = Number(date.slice(5, 7)); return bal > 0 ? bal * rateAt(d, date) / 100 * dim(y, m) / (isLeap(y) ? 366 : 365) : 0; }
+function pendAt(d, date) {
+  if (d.method === M_MONTH) return d.pending + ((d.chargedMonths || []).indexOf(date.slice(0, 7)) >= 0 ? 0 : monthInt(d, d.balance, date));
+  return d.pending + accrue(d, d.balance, d.lastDate, date);
+}
+function nextDue(d, after) {
+  var y = Number(after.slice(0, 4)), m = Number(after.slice(5, 7));
+  for (var k = 0; k < 3; k++) {
+    var cand = y + '-' + ('0' + m).slice(-2) + '-' + ('0' + Math.min(d.dueDay, dim(y, m))).slice(-2);
+    if (cand > after) return cand;
+    m++; if (m > 12) { m = 1; y++; }
+  }
+  return after;
+}
+function projLoan(d, extra, maxN) {
+  maxN = maxN || 720;
+  var bal = d.balance, prev = d.lastDate, carry = d.pending, rows = [], charged = {}, totalI = 0, stuck = 0, paidM = {};
+  (d.chargedMonths || []).forEach(function (m) { charged[m] = 1; });
+  (d.payments || []).concat(d.history || []).forEach(function (q) { paidM[q.date.slice(0, 7)] = 1; });
+  var pay = (d.monthly || 0) + (extra || 0);
+  if (!(pay > 0) || !(bal > 0)) return { rows: rows, ends: bal <= 0.005, totalI: 0, stuck: 0 };
+  for (var k = 0; k < maxN && bal > 0.005; k++) {
+    var due = nextDue(d, prev), I;
+    if (k === 0) { var g = 0; while (paidM[due.slice(0, 7)] && g++ < 3) due = nextDue(d, due); }  // เดือนที่จ่ายแล้ว ข้ามไปงวดถัดไป
+    if (d.method === M_MONTH) { I = charged[due.slice(0, 7)] ? 0 : monthInt(d, bal, due); charged[due.slice(0, 7)] = 1; }
+    else I = accrue(d, bal, prev, due);
+    if (k === 0) I += carry;
+    var P;
+    if (I >= pay) { P = 0; I = pay; stuck++; } else P = Math.min(bal, pay - I);
+    bal = r2(bal - P); totalI += I;
+    rows.push({ n: k + 1, date: due, pay: r2(P + I), P: r2(P), I: r2(I), bal: bal });
+    prev = due;
+  }
+  return { rows: rows, ends: bal <= 0.005, totalI: r2(totalI), stuck: stuck };
+}
+function payToFinish(d, endDate) {
+  if (!endDate) return null;
+  var lo = 0, hi = d.balance + d.monthly * 2, best = null;
+  for (var it = 0; it < 32; it++) {
+    var mid = (lo + hi) / 2, p = projLoan(d, mid - d.monthly, 900), last = p.rows.length ? p.rows[p.rows.length - 1].date : '';
+    if (p.ends && last <= endDate) { best = mid; hi = mid; } else lo = mid;
+  }
+  return best === null ? null : Math.ceil(best);
+}
+function projInst(d) {
+  var act = d.items.filter(function (i) { return i.remaining > 0.004; });
+  var cur = todayStr().slice(0, 7);
+  var paidNow = d.payments.some(function (p) { return p.date.slice(0, 7) === cur; });
+  var start = paidNow ? addMonths(cur, 1) : cur, rows = [];
+  var rem = act.map(function (i) { return i.remaining; });
+  for (var k = 0; k < 240; k++) {
+    var tot = 0, cnt = 0;
+    act.forEach(function (i, j) { if (rem[j] > 0.004) { var x = Math.min(i.per, rem[j]); rem[j] = r2(rem[j] - x); tot += x; cnt++; } });
+    if (!cnt) break;
+    rows.push({ m: addMonths(start, k), total: r2(tot), cnt: cnt });
+  }
+  act.forEach(function (i) { i.endMonth = addMonths(start, Math.max(0, i.left - 1)); });
+  return { rows: rows, start: start, act: act };
+}
+function loanYearly(d) {
+  var by = {};
+  function add(date, amt, P, I) { var y = date.slice(0, 4); by[y] = by[y] || { y: y, amt: 0, P: 0, I: 0 }; by[y].amt += amt; by[y].P += P; by[y].I += I; }
+  (d.history || []).forEach(function (h) { add(h.date, h.principal + h.interest, h.principal, h.interest); });
+  d.payments.forEach(function (p) { add(p.date, p.principal + p.interest, p.principal, p.interest); });
+  return Object.keys(by).sort().map(function (k) { return by[k]; });
+}
+function loanEvents(d) {
+  var ev = (d.history || []).map(function (h) { return { date: h.date, amt: h.principal + h.interest, P: h.principal, I: h.interest, bal: h.bal, rate: h.rate, note: h.note, hist: true }; });
+  d.payments.forEach(function (p) { ev.push({ id: p.id, date: p.date, amt: p.amt, P: p.principal, I: p.interest, AP: p.arrPaid, bal: p.bal }); });
+  (d.draws || []).forEach(function (w) { ev.push({ id: w.id, date: w.date, amt: w.amt, draw: true, bal: w.bal }); });
+  return ev.sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; });
+}
 
 /* ---------- API ---------- */
 function api(fn, args) {
@@ -147,8 +266,10 @@ function write(fn, args, msg) {
 }
 function setData(d) {
   S.data = d; S.month = d.month; S.stale = false;
+  if (S.detail && !debt(S.detail)) S.detail = null;
   lsSet(CACHE_PREFIX + d.month, d);
   render();
+  if (S.pendingOpen) { var pid = S.pendingOpen; S.pendingOpen = null; if (find(d.txs, pid)) openAnyTx(pid); }
 }
 function load(m) {
   m = m || S.month || nowMonth();
@@ -164,10 +285,9 @@ function load(m) {
     });
 }
 function shiftMonth(k) {
-  var p = S.month.split('-'); var y = Number(p[0]), mo = Number(p[1]) + k;
-  if (mo < 1) { mo = 12; y--; } if (mo > 12) { mo = 1; y++; }
-  if (S.data && S.data.month !== y + '-' + ('0' + mo).slice(-2)) S.data = null;
-  load(y + '-' + ('0' + mo).slice(-2));
+  var m = addMonths(S.month, k);
+  if (S.data && S.data.month !== m) S.data = null;
+  load(m);
 }
 
 /* ---------- setup screen ---------- */
@@ -198,25 +318,31 @@ function openSettings() {
   var h = sheetHead('ตั้งค่า') +
     '<div class="muted">เชื่อมต่อกับ</div><div style="word-break:break-all;font-size:13px;margin-top:4px">' + esc(S.cfg.url.slice(0, 48)) + '…</div>' +
     '<div class="btns"><button class="btn ghost" data-act="refresh">ซิงก์ใหม่</button><button class="btn ghost" data-act="disconnect">เปลี่ยนการเชื่อมต่อ</button></div>' +
-    '<div class="note">แก้หมวด บัญชี บิล และหนี้ได้ในชีต "ตั้งค่า" "บิลประจำ" "หนี้สิน" ของ Google Sheets แล้วกดซิงก์ใหม่</div>';
+    '<div class="note">แก้หมวด บัญชี บิล หนี้ และรายการผ่อนได้ในแอป หรือในชีต "ตั้งค่า" "บิลประจำ" "หนี้สิน" "รายการผ่อน" ของ Google Sheets แล้วกดซิงก์ใหม่</div>';
   el('sheet').innerHTML = h; openSheet();
 }
 
 /* ---------- render ---------- */
-function setTab(t) { S.tab = t; document.querySelectorAll('nav button').forEach(function (x) { x.classList.toggle('on', x.getAttribute('data-tab') === t); }); render(); window.scrollTo(0, 0); }
+function setTab(t) { S.tab = t; S.detail = null; document.querySelectorAll('nav button').forEach(function (x) { x.classList.toggle('on', x.getAttribute('data-tab') === t); }); render(); window.scrollTo(0, 0); }
 function render() {
   el('monLbl').textContent = monLabel(S.month);
-  el('title').textContent = TITLES[S.tab];
   var d = S.data;
+  if (S.detail && d && debt(S.detail)) el('title').innerHTML = '<button class="back" data-act="back" aria-label="กลับ">‹</button>' + esc(debt(S.detail).name);
+  else el('title').textContent = TITLES[S.tab];
   if (!d) { el('view').innerHTML = '<div class="empty">กำลังโหลด…</div>'; return; }
   var pre = (S.stale && !navigator.onLine) ? '<div class="offline">ออฟไลน์ · แสดงข้อมูลล่าสุดที่บันทึกไว้</div>' : '';
-  el('view').innerHTML = pre + ({ home: vHome, bills: vBills, debts: vDebts, tx: vTx })[S.tab](d);
+  var body;
+  if (S.detail && debt(S.detail)) { var x = debt(S.detail); body = x.kind === K_LOAN ? vLoan(x) : vInst(x); }
+  else body = ({ home: vHome, bills: vBills, debts: vDebts, tx: vTx })[S.tab](d);
+  el('view').innerHTML = pre + body;
 }
 function openSheet() { el('ov').classList.add('show'); }
 function closeSheet() { el('ov').classList.remove('show'); }
 function sheetHead(t) { return '<div class="row" style="margin-bottom:10px"><b style="font-size:17px">' + t + '</b><button class="more" data-act="close" aria-label="ปิด">✕</button></div>'; }
 function opts(list, sel) { if (sel && list.indexOf(sel) < 0) list = list.concat([sel]); return list.map(function (x) { return '<option' + (x === sel ? ' selected' : '') + '>' + esc(x) + '</option>'; }).join(''); }
 function optsObj(list, sel) { return '<option value="">— ไม่มี —</option>' + list.map(function (x) { return '<option value="' + esc(x.id) + '"' + (x.id === sel ? ' selected' : '') + '>' + esc(x.name) + '</option>'; }).join(''); }
+function kv(k, v, cls) { return '<div class="kv"><span>' + k + '</span><span class="amt' + (cls ? ' ' + cls : '') + '">' + v + '</span></div>'; }
+function splitBar(P, I) { var t = (P + I) || 1; return '<div class="bar"><i style="width:' + (P / t * 100) + '%"></i><i class="int" style="width:' + (I / t * 100) + '%"></i></div>'; }
 
 function vHome(d) {
   var bal = d.income - d.expense;
@@ -224,8 +350,9 @@ function vHome(d) {
   var unpaidAmt = d.bills.filter(function (b) { return !b.paid; }).reduce(function (s, b) { return s + b.amt; }, 0);
   var h = '<div class="card"><div class="muted">คงเหลือเดือนนี้</div><div class="big' + (bal < 0 ? ' exp' : '') + '">฿' + fmt(bal) + '</div>' +
     '<div class="grid2" style="margin-top:12px"><div><div class="muted">รายรับ</div><div class="amt inc">฿' + fmt(d.income) + '</div></div><div><div class="muted">รายจ่าย</div><div class="amt exp">฿' + fmt(d.expense) + '</div></div></div></div>';
-  h += '<div class="card" data-act="go" data-id="bills" style="cursor:pointer"><div class="row"><div><div class="muted">บิลเดือนนี้</div><div class="amt">จ่ายแล้ว ' + paidN + '/' + d.bills.length + '</div></div><div style="text-align:right"><div class="muted">ยังไม่จ่าย (ยอดปกติ)</div><div class="amt warn">฿' + fmt(unpaidAmt) + '</div></div></div><div class="bar"><i style="width:' + (d.bills.length ? paidN / d.bills.length * 100 : 0) + '%"></i></div></div>';
-  h += '<div class="card" data-act="go" data-id="debts" style="cursor:pointer"><div class="row"><div><div class="muted">หนี้คงเหลือรวม</div><div class="amt">฿' + fmt(d.totalDebt) + '</div></div><div class="muted">' + d.debts.length + ' ก้อน ›</div></div></div>';
+  h += '<div class="card" data-act="go" data-id="bills" style="cursor:pointer"><div class="row"><div><div class="muted">บิลเดือนนี้</div><div class="amt">จ่ายแล้ว ' + paidN + '/' + d.bills.length + '</div></div><div style="text-align:right"><div class="muted">ยังไม่จ่าย</div><div class="amt warn">฿' + fmt(unpaidAmt) + '</div></div></div><div class="bar"><i style="width:' + (d.bills.length ? paidN / d.bills.length * 100 : 0) + '%"></i></div></div>';
+  h += '<div class="card" data-act="go" data-id="debts" style="cursor:pointer"><div class="row"><div><div class="muted">หนี้คงเหลือรวม</div><div class="amt">฿' + fmt(d.totalDebt) + '</div></div><div style="text-align:right"><div class="muted">จ่ายหนี้เดือนนี้</div><div class="amt">฿' + fmt(d.debtPaid) + '</div></div></div>' +
+    (d.interestPaid > 0 ? '<div class="muted" style="margin-top:6px">เป็นดอกเบี้ย <span class="intc">฿' + fmt(d.interestPaid) + '</span></div>' : '') + '</div>';
   var cats = Object.keys(d.byCat).map(function (k) { return [k, d.byCat[k]]; }).sort(function (a, b) { return b[1] - a[1]; });
   if (cats.length) {
     var mx = cats[0][1] || 1;
@@ -234,7 +361,7 @@ function vHome(d) {
     h += '</div>';
   }
   var tm = 1; d.trend.forEach(function (t) { tm = Math.max(tm, t.inc, t.exp); });
-  h += '<div class="sec">6 เดือนล่าสุด</div><div class="card"><div class="muted"><span class="dot" style="background:var(--inc)"></span>รายรับ &nbsp; <span class="dot" style="background:var(--exp)"></span>รายจ่าย</div><div class="trend">';
+  h += '<div class="sec">6 เดือนล่าสุด</div><div class="card"><div class="muted"><span class="dot" style="background:var(--inc)"></span>รายรับ &nbsp; <span class="dot" style="background:var(--exp)"></span>รายจ่าย</div><div class="vbars" style="height:112px">';
   d.trend.forEach(function (t) { h += '<div><div class="pair"><i style="height:' + (t.inc / tm * 100) + '%;background:var(--inc)"></i><i style="height:' + (t.exp / tm * 100) + '%;background:var(--exp)"></i></div><small>' + MTH[Number(t.m.split('-')[1]) - 1] + '</small></div>'; });
   return h + '</div></div>';
 }
@@ -243,7 +370,9 @@ function vBills(d) {
   var paid = 0, total = 0, h = '';
   d.bills.forEach(function (b) {
     total += b.paid ? b.paidAmt : b.amt; if (b.paid) paid += b.paidAmt;
-    var sub = b.paid ? 'จ่ายแล้ว' : (b.amt ? 'ยอดปกติ ฿' + fmt(b.amt) : 'ยอดไม่คงที่');
+    var x = b.debtId ? debt(b.debtId) : null;
+    var sub = b.paid ? 'จ่ายแล้ว' : (b.amt ? (x && x.kind === K_INST ? 'ยอดเดือนนี้ ฿' + fmt(b.amt) : 'ยอดปกติ ฿' + fmt(b.amt)) : 'ยอดไม่คงที่');
+    if (x) sub += ' · หนี้: ' + esc(x.name);
     var right = b.paid ? '฿' + fmt(b.paidAmt) : (b.amt ? '฿' + fmt(b.amt) : '–');
     h += '<div class="item"><div class="chk' + (b.paid ? ' on' : '') + '" data-act="bill" data-id="' + esc(b.id) + '">' + (b.paid ? '✓' : '') + '</div><div class="grow" data-act="bill" data-id="' + esc(b.id) + '"><div class="t">' + esc(b.name) + '</div><div class="muted">' + sub + '</div></div><div class="amt' + (b.paid ? ' inc' : '') + '">' + right + '</div><button class="more" data-act="billEdit" data-id="' + esc(b.id) + '" aria-label="แก้ไขบิล">⋯</button></div>';
   });
@@ -252,19 +381,168 @@ function vBills(d) {
   return top + list + '<button class="link" data-act="billEdit" data-id="">+ เพิ่มบิล</button>';
 }
 
-function vDebts(d) {
-  var mo = d.debts.reduce(function (s, x) { return s + x.monthly; }, 0);
-  var h = '<div class="card"><div class="muted">หนี้คงเหลือรวม</div><div class="big">฿' + fmt(d.totalDebt) + '</div><div class="muted">ค่างวดรวมต่อเดือน ฿' + fmt(mo) + '</div></div>';
+/* ---------- หนี้: ภาพรวม ---------- */
+function obligations(d, months) {
+  var cur = todayStr().slice(0, 7), by = {};
+  for (var k = 0; k < months; k++) by[addMonths(cur, k)] = 0;
   d.debts.forEach(function (x) {
-    var meta = [esc(x.lender)]; if (x.rate) meta.push('ดอกเบี้ย ' + esc(x.rate)); if (x.monthly) meta.push('งวดละ ฿' + fmt(x.monthly));
-    h += '<div class="card"><div style="font-weight:600">' + esc(x.name) + '</div><div class="muted">' + meta.join(' · ') + '</div>' +
-      '<div class="big" style="font-size:23px;margin-top:8px">฿' + fmt(x.balance) + '</div>' +
-      '<div class="muted">ยอด ณ ' + dLabel(x.start) + ' ฿' + fmt(x.opening) + (x.paid ? ' · ตัดต้นแล้ว ฿' + fmt(x.paid) : '') + '</div>' +
-      (x.note ? '<div class="muted" style="margin-top:4px">' + esc(x.note) + '</div>' : '') +
-      '<div class="btns" style="margin-top:12px"><button class="btn ghost" data-act="debtEdit" data-id="' + esc(x.id) + '">แก้ไข/ปรับยอด</button><button class="btn" data-act="debtPay" data-id="' + esc(x.id) + '">บันทึกจ่าย</button></div></div>';
+    if (x.kind === K_LOAN) {
+      var p = projLoan(x, 0, months + 2);
+      p.rows.forEach(function (r) { var m = r.date.slice(0, 7); if (m in by) by[m] += r.pay; });
+    } else {
+      projInst(x).rows.forEach(function (r) { if (r.m in by) by[r.m] += r.total; });
+    }
+  });
+  return Object.keys(by).sort().map(function (m) { return { m: m, v: r2(by[m]) }; });
+}
+function vDebts(d) {
+  var loanT = 0, instT = 0, dueAll = 0, paidAll = 0;
+  d.debts.forEach(function (x) {
+    if (x.kind === K_LOAN) loanT += x.totalOwed; else instT += x.totalOwed;
+    dueAll += x.kind === K_LOAN ? x.monthly : x.dueNext; paidAll += x.paidThisMonth;
+  });
+  var h = '<div class="card"><div class="muted">หนี้คงเหลือรวม</div><div class="big">฿' + fmt(d.totalDebt) + '</div>' +
+    '<div class="grid2" style="margin-top:10px"><div><div class="muted">เงินกู้ (รวมดอกค้าง)</div><div class="amt">฿' + fmt(loanT) + '</div></div><div><div class="muted">ผ่อนรายการ</div><div class="amt">฿' + fmt(instT) + '</div></div></div>' +
+    '<div class="grid2" style="margin-top:10px"><div><div class="muted">ภาระผ่อนต่อเดือน</div><div class="amt">฿' + fmt(dueAll) + '</div></div><div><div class="muted">จ่ายแล้ว ' + monShort(d.month) + '</div><div class="amt inc">฿' + fmt(paidAll) + '</div></div></div></div>';
+  var ob = obligations(d, 12), mx = 1;
+  ob.forEach(function (o) { mx = Math.max(mx, o.v); });
+  h += '<div class="sec">ภาระผ่อน 12 เดือนข้างหน้า</div><div class="card"><div class="row muted"><span>' + monShort(ob[0].m) + ' (ที่ยังไม่จ่าย) ฿' + fmt0(ob[0].v) + '</span><span>' + monShort(ob[ob.length - 1].m) + ' ฿' + fmt0(ob[ob.length - 1].v) + '</span></div><div class="vbars">';
+  ob.forEach(function (o) { h += '<div title="' + monShort(o.m) + ' ฿' + fmt0(o.v) + '"><i style="height:' + (o.v / mx * 100) + '%"></i><small>' + MTH[Number(o.m.slice(5)) - 1].replace('.', '').slice(0, 3) + '</small></div>'; });
+  h += '</div><div class="note">รวมค่างวดเงินกู้ + ยอดผ่อนรายสินค้าที่ต้องจ่ายแต่ละเดือน (ยังไม่รวมบิลอื่น)</div></div>';
+  h += '<div class="sec">หนี้แต่ละก้อน</div>';
+  d.debts.forEach(function (x) {
+    var paidNow = x.paidThisMonth > 0;
+    h += '<div class="card" data-act="detail" data-id="' + esc(x.id) + '" style="cursor:pointer"><div class="row"><div class="grow"><div class="t" style="font-weight:600">' + esc(x.name) + '</div><div class="muted">' + esc(x.lender || x.kind) + '</div></div>' +
+      (paidNow ? '<span class="tag ok">จ่ายแล้ว ' + monShort(d.month) + '</span>' : '<span class="tag">' + x.kind + '</span>') + '</div>';
+    h += '<div class="mid" style="margin-top:6px">฿' + fmt(x.totalOwed) + '</div>';
+    if (x.kind === K_LOAN) {
+      var p = projLoan(x, 0), n = p.rows[0];
+      if (n) h += '<div class="muted" style="margin-top:4px">งวดถัดไป ฿' + fmt(n.pay) + ' · <span class="princ">ต้น ' + fmt(n.P) + '</span> / <span class="intc">ดอก ' + fmt(n.I) + '</span></div>' + splitBar(n.P, n.I);
+      h += '<div class="muted" style="margin-top:6px">' + (p.ends ? 'หมดใน ' + durText(p.rows.length) + ' (' + monShort(p.rows[p.rows.length - 1].date.slice(0, 7)) + ')' : '<span class="exp">ค่างวดปัจจุบันไม่พอให้หมดภายใน 60 ปี</span>') + (x.arrears > 0 ? ' · ดอกค้าง ฿' + fmt0(x.arrears) : '') + '</div>';
+    } else {
+      var pi = projInst(x);
+      h += '<div class="muted" style="margin-top:4px">' + (pi.act.length ? 'เดือนนี้ ฿' + fmt(x.dueNext) + ' · ' + pi.act.length + ' รายการ · จบ ' + monShort(pi.rows[pi.rows.length - 1].m) : 'ไม่มียอดผ่อนค้าง') + '</div>';
+    }
+    h += '</div>';
   });
   if (!d.debts.length) h += '<div class="empty">ไม่มีหนี้ 🎉</div>';
   return h + '<button class="link" data-act="debtEdit" data-id="">+ เพิ่มหนี้</button>';
+}
+
+/* ---------- หนี้: เงินกู้ (รายละเอียด) ---------- */
+function vLoan(x) {
+  var p = projLoan(x, 0), y = loanYearly(x), ev = loanEvents(x);
+  var paidP = 0, paidI = 0; y.forEach(function (r) { paidP += r.P; paidI += r.I; });
+  var h = '<div class="card"><div class="muted">เงินต้นคงเหลือ</div><div class="big">฿' + fmt(x.balance) + '</div>';
+  h += '<div class="chips" style="margin-top:8px"><span class="tag">ดอกเบี้ย ' + x.rate + '%/ปี</span><span class="tag">งวดละ ฿' + fmt(x.monthly) + '</span><span class="tag">คิดดอก' + esc(x.method) + '</span>' + (x.termEnd ? '<span class="tag">สัญญาถึง ' + monLabel(x.termEnd.slice(0, 7)) + '</span>' : '') + '</div>';
+  if (x.arrears > 0 || x.fees > 0) h += '<div style="margin-top:10px">' + kv('ดอกเบี้ยค้าง', '฿' + fmt(x.arrears), 'intc') + (x.fees > 0 ? kv('ค่าธรรมเนียมค้าง', '฿' + fmt(x.fees)) : '') + kv('รวมที่ต้องชำระทั้งหมด', '฿' + fmt(x.totalOwed)) + '</div>';
+  if (paidP + paidI > 0) h += '<div class="note">จ่ายมาแล้วทั้งหมด ฿' + fmt(paidP + paidI) + ' · <span class="princ">ต้น ' + fmt(paidP) + ' (' + Math.round(paidP / (paidP + paidI) * 100) + '%)</span> · <span class="intc">ดอก ' + fmt(paidI) + ' (' + Math.round(paidI / (paidP + paidI) * 100) + '%)</span></div>' + splitBar(paidP, paidI);
+  if (x.note) h += '<div class="note">' + esc(x.note) + '</div>';
+  h += '<div class="btns"><button class="btn ghost" data-act="debtEdit" data-id="' + esc(x.id) + '">แก้ไข/ปรับยอด</button><button class="btn" data-act="debtPay" data-id="' + esc(x.id) + '">บันทึกจ่าย</button></div>';
+  if (x.limit > 0) h += '<button class="link" data-act="draw" data-id="' + esc(x.id) + '">+ เบิกเงินเพิ่ม (วงเงิน ฿' + fmt0(x.limit) + ')</button>';
+  h += '</div>';
+
+  var paidNow = x.payments.filter(function (q) { return q.date.slice(0, 7) === todayStr().slice(0, 7); });
+  h += '<div class="sec">งวดถัดไป</div><div class="card">';
+  if (paidNow.length) { var q = paidNow[paidNow.length - 1]; h += '<div class="alert good" style="margin-top:0">จ่ายเดือนนี้แล้ว ฿' + fmt(q.amt) + ' (ต้น ' + fmt(q.principal) + ' / ดอก ' + fmt(q.interest) + ')</div>'; }
+  var n = p.rows[0];
+  if (n) {
+    h += '<div class="row" style="margin-top:' + (paidNow.length ? 10 : 0) + 'px"><div><div class="muted">ประมาณวันที่ ' + dLabel(n.date) + '</div><div class="mid">฿' + fmt(n.pay) + '</div></div><div style="text-align:right"><div class="princ amt">ต้น ฿' + fmt(n.P) + '</div><div class="intc amt">ดอก ฿' + fmt(n.I) + '</div></div></div>' + splitBar(n.P, n.I);
+    h += '<div class="note">ทุก ฿100 ที่จ่าย ไปตัดเงินต้น ฿' + (n.pay ? (n.P / n.pay * 100).toFixed(1) : 0) + ' ที่เหลือเป็นดอกเบี้ย</div>';
+  } else h += '<div class="muted">ไม่มียอดค้าง</div>';
+  h += '</div>';
+
+  // แผนปิดหนี้ + จำลองจ่ายเพิ่ม
+  var need = payToFinish(x, x.termEnd);
+  h += '<div class="sec">ปิดหนี้เมื่อไหร่</div><div class="card">';
+  if (p.ends) h += '<div class="muted">ถ้าจ่ายเดือนละ ฿' + fmt(x.monthly) + ' ต่อไป</div><div class="mid">หมด ' + monLabel(p.rows[p.rows.length - 1].date.slice(0, 7)) + '</div><div class="muted">อีก ' + durText(p.rows.length) + ' (' + p.rows.length + ' งวด) · ดอกเบี้ยรวมอีก <span class="intc">฿' + fmt(p.totalI) + '</span></div>';
+  else h += '<div class="alert bad" style="margin-top:0">ค่างวด ฿' + fmt(x.monthly) + ' แทบไม่ตัดเงินต้น — ด้วยอัตรานี้จะ<b>ไม่หมดภายใน 60 ปี</b></div>';
+  if (p.stuck) h += '<div class="alert bad">มี ' + p.stuck + ' งวดที่ค่างวดไม่พอจ่ายดอก ส่วนที่ขาดจะไปเป็นดอกค้าง</div>';
+  if (x.arrears > 0 || x.fees > 0) h += '<div class="note">ยังไม่รวมดอกค้าง ฿' + fmt(x.arrears) + (x.fees > 0 ? ' และค่าธรรมเนียม ฿' + fmt(x.fees) : '') + ' ซึ่งต้องจ่ายแยก/ตอนปิดบัญชี</div>';
+  if (need && x.termEnd) h += '<div class="alert">ต้องจ่ายประมาณ <b>฿' + fmt0(need) + '/เดือน</b> เพื่อให้หมดตามสัญญา (' + monLabel(x.termEnd.slice(0, 7)) + ')' + (need > x.monthly ? ' · มากกว่าตอนนี้ ฿' + fmt0(need - x.monthly) : '') + '</div>';
+  h += '<label>ลองจ่ายเพิ่มต่อเดือน</label><div class="chips">' + [0, 500, 1000, 2000, 5000].map(function (v) { return '<button class="' + (S.extra === v ? 'on' : '') + '" data-act="extra" data-id="' + v + '">' + (v ? '+' + fmt0(v) : 'เท่าเดิม') + '</button>'; }).join('') + '</div>';
+  if (S.extra > 0) {
+    var s = projLoan(x, S.extra);
+    if (s.ends) {
+      var saveM = p.ends ? p.rows.length - s.rows.length : null;
+      h += '<div class="alert good">จ่ายเดือนละ ฿' + fmt(x.monthly + S.extra) + ' → หมด <b>' + monLabel(s.rows[s.rows.length - 1].date.slice(0, 7)) + '</b> (อีก ' + durText(s.rows.length) + ')' +
+        (saveM !== null ? '<br>เร็วขึ้น ' + durText(saveM) + ' · ประหยัดดอกเบี้ย <b>฿' + fmt0(p.totalI - s.totalI) + '</b>' : '<br>ดอกเบี้ยรวม ฿' + fmt0(s.totalI)) + '</div>';
+    } else h += '<div class="alert bad">จ่ายเพิ่ม ฿' + fmt0(S.extra) + ' ก็ยังไม่หมดภายใน 60 ปี</div>';
+  }
+  h += '</div>';
+
+  // ตารางงวดข้างหน้า
+  var sched = S.extra > 0 ? projLoan(x, S.extra) : p, showN = S.showAll.sched ? sched.rows.length : 12;
+  h += '<div class="sec">ตารางผ่อนข้างหน้า' + (S.extra > 0 ? ' (+' + fmt0(S.extra) + ')' : '') + '<span class="small">' + sched.rows.length + (sched.ends ? '' : '+') + ' งวด</span></div><div class="card" style="padding:8px 12px"><div class="tw"><table><tr><th>งวด</th><th>จ่าย</th><th>ต้น</th><th>ดอก</th><th>คงเหลือ</th></tr>';
+  sched.rows.slice(0, showN).forEach(function (r) { h += '<tr><td>' + monShort(r.date.slice(0, 7)) + '</td><td>' + fmt0(r.pay) + '</td><td class="princ">' + fmt0(r.P) + '</td><td class="intc">' + fmt0(r.I) + '</td><td>' + fmt0(r.bal) + '</td></tr>'; });
+  h += '</table></div>' + (sched.rows.length > 12 ? '<button class="link" data-act="toggle" data-id="sched">' + (S.showAll.sched ? 'ย่อ' : 'ดูทั้งหมด ' + sched.rows.length + ' งวด') + '</button>' : '') + '</div>';
+
+  // สรุปรายปี
+  if (y.length) {
+    h += '<div class="sec">สรุปรายปี (จ่ายจริง)</div><div class="card" style="padding:8px 12px"><div class="tw"><table><tr><th>ปี</th><th>จ่าย</th><th>ต้น</th><th>ดอก</th><th>%ต้น</th></tr>';
+    y.slice().reverse().forEach(function (r) { h += '<tr><td>' + (Number(r.y) + 543) + '</td><td>' + fmt0(r.amt) + '</td><td class="princ">' + fmt0(r.P) + '</td><td class="intc">' + fmt0(r.I) + '</td><td>' + (r.amt ? Math.round(r.P / r.amt * 100) : 0) + '%</td></tr>'; });
+    h += '</table></div></div>';
+  }
+
+  // ประวัติ
+  if (ev.length) {
+    var showH = S.showAll.hist ? ev.length : 12;
+    h += '<div class="sec">ประวัติการจ่าย<span class="small">' + ev.length + ' รายการ</span></div><div class="card" style="padding:8px 12px"><div class="tw"><table><tr><th>วันที่</th><th>จ่าย</th><th>ต้น</th><th>ดอก</th><th>คงเหลือ</th></tr>';
+    ev.slice(0, showH).forEach(function (e) {
+      if (e.draw) h += '<tr class="click" data-act="tx" data-id="' + esc(e.id) + '"><td>' + dShort(e.date) + '</td><td colspan="3" class="exp">เบิกเพิ่ม +' + fmt(e.amt) + '</td><td>' + fmt0(e.bal) + '</td></tr>';
+      else h += '<tr' + (e.id ? ' class="click" data-act="tx" data-id="' + esc(e.id) + '"' : '') + '><td>' + (e.hist ? monShort(e.date.slice(0, 7)) : dShort(e.date)) + (e.note ? ' <span class="muted">*</span>' : '') + '</td><td>' + fmt0(e.amt) + '</td><td class="princ">' + fmt0(e.P) + '</td><td class="intc">' + fmt0(e.I) + '</td><td>' + fmt0(e.bal) + '</td></tr>';
+    });
+    h += '</table></div>' + (ev.length > 12 ? '<button class="link" data-act="toggle" data-id="hist">' + (S.showAll.hist ? 'ย่อ' : 'ดูทั้งหมด') + '</button>' : '') + '<div class="note">* = ประมาณการ · แตะรายการที่บันทึกในแอปเพื่อแก้ไข</div></div>';
+  }
+  return h;
+}
+
+/* ---------- หนี้: ผ่อนรายการ (รายละเอียด) ---------- */
+function vInst(x) {
+  var pi = projInst(x), cur = todayStr().slice(0, 7);
+  var done = x.items.filter(function (i) { return i.remaining <= 0.004; });
+  var h = '<div class="card"><div class="muted">ยอดผ่อนคงเหลือ</div><div class="big">฿' + fmt(x.remaining) + '</div>';
+  h += '<div class="grid2" style="margin-top:10px"><div><div class="muted">ต้องจ่าย ' + monShort(pi.start) + '</div><div class="amt">฿' + fmt(pi.rows.length ? pi.rows[0].total : 0) + '</div></div><div><div class="muted">หมดภาระทั้งหมด</div><div class="amt">' + (pi.rows.length ? monShort(pi.rows[pi.rows.length - 1].m) + ' (' + pi.rows.length + ' เดือน)' : '–') + '</div></div></div>';
+  if (x.limit > 0) h += '<div style="margin-top:10px">' + kv('วงเงิน', '฿' + fmt(x.limit)) + kv('ใช้ไป / คงเหลือ', '฿' + fmt(x.remaining) + ' / ฿' + fmt(Math.max(0, x.limit - x.remaining))) + '</div>';
+  if (x.note) h += '<div class="note">' + esc(x.note) + '</div>';
+  h += '<div class="btns"><button class="btn ghost" data-act="itemEdit" data-id="">+ เพิ่มรายการผ่อน</button><button class="btn" data-act="debtPay" data-id="' + esc(x.id) + '">บันทึกจ่าย</button></div>';
+  h += '<button class="link" data-act="debtEdit" data-id="' + esc(x.id) + '">แก้ไขข้อมูลหนี้</button></div>';
+
+  h += '<div class="sec">กำลังผ่อน<span class="small">' + pi.act.length + ' รายการ</span></div>';
+  if (pi.act.length) {
+    h += '<div class="card" style="padding:4px 16px">';
+    pi.act.forEach(function (i) {
+      h += '<div class="item" data-act="itemEdit" data-id="' + esc(i.id) + '" style="display:block"><div class="row"><div class="t grow">' + esc(i.name) + '</div><div class="amt">฿' + fmt(i.per) + '/ด.</div></div>' +
+        '<div class="bar"><i style="width:' + (i.done / i.n * 100) + '%"></i></div>' +
+        '<div class="row muted" style="margin-top:4px"><span>งวด ' + i.done + '/' + i.n + ' · เหลือ ' + i.left + ' งวด ฿' + fmt(i.remaining) + '</span><span>จบ ' + monShort(i.endMonth) + '</span></div>' +
+        '<div class="muted small">ซื้อ ' + dShort(i.date) + (i.price ? ' · ราคา ฿' + fmt(i.price) : '') + (i.total > i.price + 0.004 && i.price ? ' · ดอก/ค่าธรรมเนียม ฿' + fmt(i.total - i.price) : '') + (i.note ? ' · ' + esc(i.note) : '') + '</div></div>';
+    });
+    h += '</div>';
+  } else h += '<div class="card"><div class="muted">ไม่มีรายการที่กำลังผ่อน</div></div>';
+
+  if (pi.rows.length) {
+    h += '<div class="sec">ต้องจ่ายแต่ละเดือน</div><div class="card" style="padding:8px 12px"><div class="tw"><table><tr><th>เดือน</th><th>ยอด</th><th>รายการ</th></tr>';
+    pi.rows.forEach(function (r) { h += '<tr><td>' + monShort(r.m) + '</td><td>' + fmt(r.total) + '</td><td>' + r.cnt + '</td></tr>'; });
+    h += '</table></div></div>';
+  }
+
+  if (x.payments.length) {
+    var pays = x.payments.slice().reverse();
+    h += '<div class="sec">ประวัติการจ่าย (ในแอป)</div><div class="card" style="padding:4px 16px">';
+    pays.forEach(function (q) { h += '<div class="item" data-act="tx" data-id="' + esc(q.id) + '"><div class="grow"><div>' + dLabel(q.date) + '</div><div class="muted">' + Object.keys(q.items || {}).length + ' รายการ</div></div><div class="amt">฿' + fmt(q.amt) + '</div></div>'; });
+    h += '</div>';
+  }
+
+  if (done.length) {
+    var dt = done.reduce(function (s, i) { return s + i.total; }, 0);
+    h += '<div class="sec">ผ่อนครบแล้ว<span class="small">' + done.length + ' รายการ · ฿' + fmt0(dt) + '</span></div>';
+    if (S.showAll.done) {
+      h += '<div class="card" style="padding:8px 12px"><div class="tw"><table><tr><th>รายการ</th><th>ซื้อ</th><th>งวด</th><th>ยอดรวม</th></tr>';
+      done.slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; }).forEach(function (i) { h += '<tr class="click" data-act="itemEdit" data-id="' + esc(i.id) + '"><td>' + esc(i.name) + '</td><td>' + dShort(i.date) + '</td><td>' + i.n + '</td><td>' + fmt(i.total) + '</td></tr>'; });
+      h += '</table></div><button class="link" data-act="toggle" data-id="done">ย่อ</button></div>';
+    } else h += '<button class="link" data-act="toggle" data-id="done">แสดงรายการที่ผ่อนครบแล้ว</button>';
+  }
+  return h;
 }
 
 function vTx(d) {
@@ -272,25 +550,39 @@ function vTx(d) {
   var h = '', cur = '';
   d.txs.forEach(function (t) {
     if (t.date !== cur) { if (cur) h += '</div>'; cur = t.date; h += '<div class="sec">' + dLabel(t.date) + '</div><div class="card" style="padding:4px 16px">'; }
-    var inc = t.type === 'รายรับ';
-    h += '<div class="item" data-act="tx" data-id="' + esc(t.id) + '"><div class="grow"><div class="t">' + esc(t.note || t.cat) + '</div><div class="muted">' + esc(t.cat) + (t.acc ? ' · ' + esc(t.acc) : '') + '</div></div><div class="amt' + (inc ? ' inc' : '') + '">' + (inc ? '+' : '−') + fmt(t.amt) + '</div></div>';
+    var inc = t.type === 'รายรับ', x = t.debtId ? debt(t.debtId) : null, sub = esc(t.cat) + (t.acc ? ' · ' + esc(t.acc) : '');
+    if (x && x.kind === K_LOAN && !inc && t.interest !== null) sub += ' · ต้น ' + fmt(t.principal) + ' / ดอก ' + fmt(t.interest);
+    h += '<div class="item" data-act="tx" data-id="' + esc(t.id) + '"><div class="grow"><div class="t">' + esc(t.note || t.cat) + '</div><div class="muted">' + sub + '</div></div><div class="amt' + (inc ? ' inc' : '') + '">' + (inc ? '+' : '−') + fmt(t.amt) + '</div></div>';
   });
   return h + '</div>';
 }
 
-/* ---------- forms ---------- */
+/* ---------- ฟอร์มรายการทั่วไป ---------- */
 function defDate() { var t = S.data.today; return t.slice(0, 7) === S.month ? t : S.month + '-01'; }
+function findTx(id) {
+  var t = find(S.data.txs, id);
+  if (t) return t;
+  var hit = null;
+  S.data.debts.forEach(function (x) {
+    (x.payments || []).concat(x.draws || []).forEach(function (q) { if (q.id === id) hit = { x: x, q: q }; });
+  });
+  return hit;
+}
 function openTx(t, p) {
   var d = S.data; if (!d) return;
-  F = t ? { id: t.id, type: t.type, cat: t.cat, amt: t.amt, date: t.date, acc: t.acc, note: t.note, billId: t.billId, debtId: t.debtId, principal: t.principal }
-        : Object.assign({ id: '', type: 'รายจ่าย', cat: '', amt: '', date: defDate(), acc: d.accounts[0] || '', note: '', billId: '', debtId: '', principal: null }, p || {});
+  F = t ? { mode: 'tx', id: t.id, type: t.type, cat: t.cat, amt: t.amt, date: t.date, acc: t.acc, note: t.note, billId: t.billId }
+        : Object.assign({ mode: 'tx', id: '', type: 'รายจ่าย', cat: '', amt: '', date: defDate(), acc: d.accounts[0] || '', note: '', billId: '' }, p || {});
   drawTx(); openSheet();
 }
 function grab() {
   var g = function (i) { var e = el(i); return e ? e.value : null; }; var v;
   if ((v = g('fAmt')) !== null) F.amt = v; if ((v = g('fNote')) !== null) F.note = v; if ((v = g('fDate')) !== null) F.date = v; if ((v = g('fAcc')) !== null) F.acc = v;
-  if ((v = g('fBill')) !== null) F.billId = v; if ((v = g('fDebt')) !== null) F.debtId = v;
-  v = g('fPrin'); if (v !== null) F.principal = v === '' ? null : v;
+  if ((v = g('fBill')) !== null) F.billId = v;
+  if ((v = g('fP')) !== null) F.P = v; if ((v = g('fI')) !== null) F.I = v; if ((v = g('fAP')) !== null) F.AP = v;
+  if (F.mode === 'inst') document.querySelectorAll('[data-item]').forEach(function (inp) {
+    var id = inp.getAttribute('data-item'), on = el('ck_' + id);
+    F.sel[id] = { on: on ? on.checked : false, amt: inp.value };
+  });
 }
 function drawTx() {
   var d = S.data, inc = F.type === 'รายรับ';
@@ -302,33 +594,157 @@ function drawTx() {
   h += '<label>หมวด</label><div class="chips">' + cats.map(function (c) { return '<button class="' + (c === F.cat ? 'on' : '') + '" data-act="fcat" data-id="' + esc(c) + '">' + esc(c) + '</button>'; }).join('') + '</div>';
   h += '<label>หมายเหตุ</label><input id="fNote" value="' + esc(F.note) + '" placeholder="เช่น ข้าวกลางวัน">';
   h += '<div class="grid2"><div><label>วันที่</label><input id="fDate" type="date" value="' + esc(F.date) + '"></div><div><label>บัญชี/ช่องทาง</label><select id="fAcc">' + opts(d.accounts, F.acc) + '</select></div></div>';
-  if (!inc) {
-    h += '<div class="grid2"><div><label>ผูกกับบิล</label><select id="fBill" data-chg="bill">' + optsObj(d.bills, F.billId) + '</select></div><div><label>ชำระหนี้</label><select id="fDebt" data-chg="debt">' + optsObj(d.debts, F.debtId) + '</select></div></div>';
-    if (F.debtId) h += '<label>ส่วนที่เป็นเงินต้น (ถ้าทราบ · เว้นว่าง = ตัดทั้งจำนวน)</label><input id="fPrin" type="number" inputmode="decimal" step="0.01" value="' + (F.principal == null ? '' : esc(F.principal)) + '">';
-  }
+  if (!inc) h += '<label>ผูกกับบิล</label><select id="fBill" data-chg="bill">' + optsObj(d.bills, F.billId) + '</select><div class="note">จ่ายหนี้: เลือกบิลที่ผูกกับหนี้ หรือไปที่แท็บหนี้ > บันทึกจ่าย เพื่อแยกต้น/ดอก</div>';
   h += '<div class="btns">' + (F.id ? '<button class="btn del" data-act="fdel">ลบ</button>' : '') + '<button class="btn" data-act="fsave">บันทึก</button></div>';
   el('sheet').innerHTML = h;
+}
+
+/* ---------- ฟอร์มจ่ายเงินกู้ (แยกต้น/ดอก) ---------- */
+function openLoanPay(x, billId, existing) {
+  var b = billId ? find(S.data.bills, billId) : null;
+  if (existing) F = { mode: 'loan', debtId: x.id, id: existing.id, amt: existing.amt, date: existing.date, acc: existing.acc || S.data.accounts[0] || '', note: existing.note || x.name, billId: existing.billId || '', cat: existing.cat || 'ชำระหนี้', manual: true, P: existing.principal, I: existing.interest, AP: existing.arrPaid || 0 };
+  else F = { mode: 'loan', debtId: x.id, id: '', amt: x.monthly || '', date: defDate(), acc: S.data.accounts[0] || '', note: x.name, billId: billId || '', cat: b ? b.cat : 'ชำระหนี้', manual: false, P: '', I: '', AP: 0 };
+  if (!F.billId) { var lb = S.data.bills.filter(function (z) { return z.debtId === x.id; })[0]; if (lb && !existing) F.billId = lb.id; }
+  drawLoanPay(); openSheet();
+}
+function loanSplit() {
+  var x = debt(F.debtId), amt = parseFloat(F.amt) || 0;
+  if (F.manual) { var P = parseFloat(F.P) || 0, I = parseFloat(F.I) || 0, AP = parseFloat(F.AP) || 0; return { P: P, I: I, AP: AP, due: null, ok: Math.abs(P + I + AP - amt) < 0.01 }; }
+  var due = pendAt(x, F.date || todayStr()), I2 = Math.min(amt, due);
+  return { P: r2(amt - I2), I: r2(I2), AP: 0, due: r2(due), ok: true };
+}
+function drawLoanPay() {
+  var x = debt(F.debtId), s = loanSplit();
+  var h = sheetHead((F.id ? 'แก้ไขการจ่าย · ' : 'จ่าย · ') + esc(x.name));
+  h += '<label>จำนวนเงิน (บาท)</label><input id="fAmt" class="amtIn" type="number" inputmode="decimal" step="0.01" value="' + esc(F.amt) + '" data-live="1">';
+  h += '<div class="grid2"><div><label>วันที่จ่าย</label><input id="fDate" type="date" value="' + esc(F.date) + '" data-live="1"></div><div><label>บัญชี/ช่องทาง</label><select id="fAcc">' + opts(S.data.accounts, F.acc) + '</select></div></div>';
+  h += '<div class="card" style="margin:14px 0 0;background:var(--bg)">';
+  if (!F.manual) {
+    h += kv('ดอกเบี้ยงวดนี้ (' + (x.method === M_MONTH ? 'ทั้งเดือน' : 'ตั้งแต่ ' + dShort(x.lastDate)) + ')', '฿' + fmt(s.due), 'intc');
+    h += kv('ตัดเงินต้น', '฿' + fmt(s.P), 'princ') + kv('เงินต้นหลังจ่าย', '฿' + fmt(x.balance - s.P));
+    h += splitBar(s.P, s.I);
+    if ((parseFloat(F.amt) || 0) < s.due) h += '<div class="alert bad">ยอดจ่ายน้อยกว่าดอก ฿' + fmt(s.due - (parseFloat(F.amt) || 0)) + ' จะไปเป็นดอกค้าง</div>';
+  } else {
+    h += '<div class="grid3"><div><label>เงินต้น</label><input id="fP" type="number" inputmode="decimal" step="0.01" value="' + esc(F.P) + '" data-live="1"></div><div><label>ดอกเบี้ย</label><input id="fI" type="number" inputmode="decimal" step="0.01" value="' + esc(F.I) + '" data-live="1"></div><div><label>ตัดดอกค้าง</label><input id="fAP" type="number" inputmode="decimal" step="0.01" value="' + esc(F.AP) + '" data-live="1"></div></div>';
+    h += s.ok ? '<div class="note">รวม ฿' + fmt(s.P + s.I + s.AP) + ' ✓</div>' : '<div class="alert bad">ต้น + ดอก + ดอกค้าง = ฿' + fmt(s.P + s.I + s.AP) + ' ไม่เท่ากับยอดจ่าย</div>';
+  }
+  h += '<label style="display:flex;align-items:center;gap:8px;color:var(--text)"><input type="checkbox" id="fManual"' + (F.manual ? ' checked' : '') + ' data-chg="manual"> กรอกต้น/ดอกเองตามสลิป</label></div>';
+  h += '<label>ผูกกับบิล</label><select id="fBill">' + optsObj(S.data.bills, F.billId) + '</select>';
+  h += '<label>หมายเหตุ</label><input id="fNote" value="' + esc(F.note) + '">';
+  h += '<div class="btns">' + (F.id ? '<button class="btn del" data-act="fdel">ลบ</button>' : '') + '<button class="btn" data-act="loanSave">บันทึก</button></div>';
+  el('sheet').innerHTML = h;
+}
+
+/* ---------- ฟอร์มจ่ายผ่อนรายการ (ติ๊กรายสินค้า) ---------- */
+function openInstPay(x, billId, existing) {
+  F = { mode: 'inst', debtId: x.id, id: existing ? existing.id : '', date: existing ? existing.date : defDate(), acc: existing ? (existing.acc || S.data.accounts[0] || '') : (S.data.accounts[0] || ''), note: existing ? existing.note : x.name, billId: existing ? (existing.billId || '') : (billId || ''), cat: existing ? existing.cat : 'ชำระหนี้', sel: {} };
+  if (!F.billId && !existing) { var lb = S.data.bills.filter(function (z) { return z.debtId === x.id; })[0]; if (lb) { F.billId = lb.id; F.cat = lb.cat; } }
+  var prev = existing ? (existing.items || {}) : {};
+  x.items.forEach(function (i) {
+    var mine = Number(prev[i.id]) || 0;
+    if (existing) { if (mine > 0 || i.remaining > 0.004) F.sel[i.id] = { on: mine > 0, amt: mine > 0 ? mine : i.next }; }
+    else if (i.remaining > 0.004) F.sel[i.id] = { on: true, amt: i.next };
+  });
+  drawInstPay(); openSheet();
+}
+function instTotal() { var s = 0; Object.keys(F.sel).forEach(function (k) { if (F.sel[k].on) s += parseFloat(F.sel[k].amt) || 0; }); return r2(s); }
+function drawInstPay() {
+  var x = debt(F.debtId);
+  var h = sheetHead((F.id ? 'แก้ไขการจ่าย · ' : 'จ่าย · ') + esc(x.name));
+  h += '<div class="muted">ติ๊กรายการที่จ่ายรอบนี้ แก้ยอดได้ถ้าไม่ตรง</div><div class="card" style="margin:10px 0 0;padding:4px 14px;background:var(--bg)">';
+  var ids = Object.keys(F.sel);
+  if (!ids.length) h += '<div class="muted" style="padding:12px 0">ไม่มีรายการค้าง — เพิ่มรายการผ่อนก่อน</div>';
+  ids.forEach(function (id) {
+    var i = find(x.items, id), s = F.sel[id];
+    h += '<div class="irow"><input type="checkbox" id="ck_' + esc(id) + '"' + (s.on ? ' checked' : '') + ' data-chg="inst"><div class="grow"><div class="t">' + esc(i.name) + '</div><div class="muted small">งวด ' + Math.min(i.n, i.done + 1) + '/' + i.n + ' · เหลือ ฿' + fmt(i.remaining) + '</div></div><input type="number" inputmode="decimal" step="0.01" data-item="' + esc(id) + '" value="' + esc(s.amt) + '" data-live="1"></div>';
+  });
+  h += '</div><div class="row" style="margin-top:12px"><span class="muted">รวมที่จ่าย</span><span class="mid" id="instSum">฿' + fmt(instTotal()) + '</span></div>';
+  h += '<div class="grid2"><div><label>วันที่จ่าย</label><input id="fDate" type="date" value="' + esc(F.date) + '"></div><div><label>บัญชี/ช่องทาง</label><select id="fAcc">' + opts(S.data.accounts, F.acc) + '</select></div></div>';
+  h += '<label>ผูกกับบิล</label><select id="fBill">' + optsObj(S.data.bills, F.billId) + '</select>';
+  h += '<label>หมายเหตุ</label><input id="fNote" value="' + esc(F.note) + '">';
+  h += '<div class="btns">' + (F.id ? '<button class="btn del" data-act="fdel">ลบ</button>' : '') + '<button class="btn" data-act="instSave">บันทึก</button></div>';
+  el('sheet').innerHTML = h;
+}
+
+/* ---------- ฟอร์มเบิกเงินกู้ / รายการผ่อน / บิล / หนี้ ---------- */
+function openDraw(x, existing) {
+  F = { mode: 'draw', debtId: x.id, id: existing ? existing.id : '', amt: existing ? existing.amt : '', date: existing ? existing.date : defDate(), acc: existing ? existing.acc : (S.data.accounts[0] || ''), note: existing ? existing.note : 'เบิกเงินสด ' + x.name };
+  var h = sheetHead((F.id ? 'แก้ไขการเบิก · ' : 'เบิกเงินเพิ่ม · ') + esc(x.name)) +
+    '<label>จำนวนเงิน (บาท)</label><input id="fAmt" class="amtIn" type="number" inputmode="decimal" step="0.01" value="' + esc(F.amt) + '">' +
+    '<div class="grid2"><div><label>วันที่</label><input id="fDate" type="date" value="' + esc(F.date) + '"></div><div><label>เข้าบัญชี</label><select id="fAcc">' + opts(S.data.accounts, F.acc) + '</select></div></div>' +
+    '<label>หมายเหตุ</label><input id="fNote" value="' + esc(F.note) + '">' +
+    '<div class="note">ยอดเงินต้นจะเพิ่มขึ้น และนับเป็นรายรับหมวด "เบิกเงินกู้"</div>' +
+    '<div class="btns">' + (F.id ? '<button class="btn del" data-act="fdel">ลบ</button>' : '') + '<button class="btn" data-act="drawSave">บันทึก</button></div>';
+  el('sheet').innerHTML = h; openSheet();
+}
+function openItemForm(id) {
+  var x = debt(S.detail), i = id ? find(x.items, id) : null;
+  F = { mode: 'item' };
+  var h = sheetHead(i ? 'แก้ไขรายการผ่อน' : 'เพิ่มรายการผ่อน · ' + esc(x.name)) +
+    '<label>รายการ</label><input id="iName" value="' + esc(i ? i.name : '') + '" placeholder="เช่น หูฟัง">' +
+    '<div class="grid2"><div><label>วันที่ซื้อ</label><input id="iDate" type="date" value="' + esc(i ? i.date : todayStr()) + '"></div><div><label>ราคาสินค้า</label><input id="iPrice" type="number" inputmode="decimal" step="0.01" value="' + (i ? i.price : '') + '" data-live="1"></div></div>' +
+    '<div class="grid2"><div><label>จำนวนงวด</label><input id="iN" type="number" inputmode="numeric" step="1" min="1" value="' + (i ? i.n : 3) + '" data-live="1"></div><div><label>ค่างวด (รวมดอก)</label><input id="iPer" type="number" inputmode="decimal" step="0.01" value="' + (i ? i.per : '') + '" placeholder="ว่าง = ราคา ÷ งวด" data-live="1"></div></div>' +
+    '<div class="note" id="iCalc"></div>' +
+    '<label>จ่ายไปแล้วก่อนเริ่มใช้แอป (บาท)</label><input id="iPaid" type="number" inputmode="decimal" step="0.01" value="' + (i ? i.paidBase : 0) + '">' +
+    '<label>หมายเหตุ</label><input id="iNote" value="' + esc(i ? i.note : '') + '">' +
+    '<div class="btns">' + (i ? '<button class="btn del" data-act="itemDel" data-id="' + esc(i.id) + '">ลบ</button>' : '') + '<button class="btn" data-act="itemSave" data-id="' + (i ? esc(i.id) : '') + '">บันทึก</button></div>';
+  el('sheet').innerHTML = h; openSheet(); itemCalc();
+}
+function itemCalc() {
+  var e = el('iCalc'); if (!e) return;
+  var price = parseFloat(el('iPrice').value) || 0, n = Math.max(1, parseInt(el('iN').value, 10) || 1), per = parseFloat(el('iPer').value) || (price ? r2(price / n) : 0);
+  var total = r2(per * n);
+  e.innerHTML = per ? 'ผ่อน ' + n + ' งวด × ฿' + fmt(per) + ' = <b>฿' + fmt(total) + '</b>' + (price && total > price + 0.004 ? ' · ดอก/ค่าธรรมเนียม ฿' + fmt(total - price) : '') : '';
 }
 function openBillForm(id) {
   var d = S.data, b = id ? find(d.bills, id) : null;
   el('sheet').innerHTML = sheetHead(b ? 'แก้ไขบิล' : 'เพิ่มบิล') +
     '<label>ชื่อบิล</label><input id="bName" value="' + esc(b ? b.name : '') + '">' +
-    '<label>ยอดปกติต่อเดือน (ใส่ 0 ถ้ายอดไม่คงที่)</label><input id="bAmt" type="number" inputmode="decimal" step="0.01" value="' + (b ? b.amt : '') + '">' +
+    '<label>ยอดปกติต่อเดือน (ใส่ 0 ถ้ายอดไม่คงที่ · บิลที่ผูกหนี้ใช้ยอดจากหนี้)</label><input id="bAmt" type="number" inputmode="decimal" step="0.01" value="' + (b ? b.amt : '') + '">' +
     '<label>หมวด</label><select id="bCat">' + opts(d.cats.expense, b ? b.cat : 'ชำระหนี้') + '</select>' +
     '<label>ผูกกับหนี้ (ถ้ามี)</label><select id="bDebt">' + optsObj(d.debts, b ? b.debtId : '') + '</select>' +
     '<div class="btns">' + (b ? '<button class="btn del" data-act="bdel" data-id="' + esc(b.id) + '">ลบบิล</button>' : '') + '<button class="btn" data-act="bsave" data-id="' + (b ? esc(b.id) : '') + '">บันทึก</button></div>';
   openSheet();
 }
 function openDebtForm(id) {
-  var d = S.data, x = id ? find(d.debts, id) : null;
-  el('sheet').innerHTML = sheetHead(x ? 'แก้ไขหนี้' : 'เพิ่มหนี้') +
-    '<label>ชื่อหนี้</label><input id="dName" value="' + esc(x ? x.name : '') + '">' +
-    '<label>เจ้าหนี้</label><input id="dLender" value="' + esc(x ? x.lender : '') + '">' +
-    '<label>ยอดคงเหลือจริงตอนนี้ (ดูจากแอปธนาคาร)</label><input id="dBal" type="number" inputmode="decimal" step="0.01" value="' + (x ? x.balance : '') + '">' +
-    '<div class="grid2"><div><label>ดอกเบี้ย/ปี</label><input id="dRate" value="' + esc(x ? x.rate : '') + '" placeholder="เช่น 3.9%"></div><div><label>ค่างวด/เดือน</label><input id="dMon" type="number" inputmode="decimal" step="0.01" value="' + (x ? x.monthly : '') + '"></div></div>' +
-    '<label>หมายเหตุ</label><input id="dNote" value="' + esc(x ? x.note : '') + '">' +
+  var x = id ? debt(id) : null, kind = x ? x.kind : (F.newKind || K_LOAN);
+  F = { mode: 'debt', newKind: kind };
+  var loan = kind === K_LOAN;
+  var h = sheetHead(x ? 'แก้ไขหนี้' : 'เพิ่มหนี้');
+  if (!x) h += '<div class="seg"><button class="' + (loan ? 'on' : '') + '" data-act="dkind" data-id="' + K_LOAN + '">เงินกู้ (มีดอกเบี้ย)</button><button class="' + (loan ? '' : 'on') + '" data-act="dkind" data-id="' + K_INST + '">ผ่อนรายสินค้า</button></div>';
+  h += '<label>ชื่อหนี้</label><input id="dName" value="' + esc(x ? x.name : '') + '">' +
+    '<label>เจ้าหนี้</label><input id="dLender" value="' + esc(x ? x.lender : '') + '">';
+  if (loan) {
+    h += '<div class="grid2"><div><label>เงินต้นคงเหลือจริง</label><input id="dBal" type="number" inputmode="decimal" step="0.01" value="' + (x ? x.balance : '') + '"></div><div><label>ณ วันที่</label><input id="dAsOf" type="date" value="' + esc(todayStr()) + '"></div></div>' +
+      '<div class="grid2"><div><label>ดอกเบี้ยค้าง</label><input id="dArr" type="number" inputmode="decimal" step="0.01" value="' + (x ? x.arrears : 0) + '"></div><div><label>ค่าธรรมเนียมค้าง</label><input id="dFees" type="number" inputmode="decimal" step="0.01" value="' + (x ? x.fees : 0) + '"></div></div>' +
+      '<div class="grid2"><div><label>ดอกเบี้ย %/ปี</label><input id="dRate" type="number" inputmode="decimal" step="0.01" value="' + (x ? x.rate : '') + '"></div><div><label>มีผลตั้งแต่ (ถ้าเปลี่ยน)</label><input id="dRateFrom" type="date" value="' + esc(todayStr()) + '"></div></div>' +
+      '<div class="grid2"><div><label>ค่างวด/เดือน</label><input id="dMon" type="number" inputmode="decimal" step="0.01" value="' + (x ? x.monthly : '') + '"></div><div><label>วันครบกำหนด (1–31)</label><input id="dDue" type="number" inputmode="numeric" min="1" max="31" value="' + (x ? x.dueDay : 1) + '"></div></div>' +
+      '<div class="grid2"><div><label>วิธีคิดดอก</label><select id="dMethod"><option' + (x && x.method === M_MONTH ? ' selected' : '') + '>รายเดือน</option><option' + (!x || x.method !== M_MONTH ? ' selected' : '') + '>รายวัน</option></select></div><div><label>สิ้นสุดสัญญา</label><input id="dTerm" type="date" value="' + esc(x ? x.termEnd : '') + '"></div></div>' +
+      '<label>วงเงิน (ถ้าเบิกเพิ่มได้) / ยอดกู้</label><input id="dLimit" type="number" inputmode="decimal" step="0.01" value="' + (x ? x.limit : '') + '">' +
+      '<div class="note">รายเดือน = ดอกเท่าจำนวนวันของเดือน (แบบ ธอส.) · รายวัน = นับวันระหว่างงวด (แบบบัตรกดเงินสด/SAM) · แก้ยอดเงินต้นเมื่อไม่ตรงกับใบแจ้งหนี้</div>';
+  } else {
+    h += '<div class="grid2"><div><label>วงเงิน</label><input id="dLimit" type="number" inputmode="decimal" step="0.01" value="' + (x ? x.limit : '') + '"></div><div><label>วันครบกำหนด</label><input id="dDue" type="number" inputmode="numeric" min="1" max="31" value="' + (x ? x.dueDay : 1) + '"></div></div>' +
+      '<div class="note">ยอดหนี้คำนวณจากรายการผ่อนแต่ละรายการ — เพิ่มรายการได้ในหน้ารายละเอียดหนี้</div>';
+  }
+  h += '<label>หมายเหตุ</label><input id="dNote" value="' + esc(x ? x.note : '') + '">' +
     '<div class="btns">' + (x ? '<button class="btn del" data-act="ddel" data-id="' + esc(x.id) + '">ปิดหนี้</button>' : '') + '<button class="btn" data-act="dsave" data-id="' + (x ? esc(x.id) : '') + '">บันทึก</button></div>';
-  openSheet();
+  el('sheet').innerHTML = h; openSheet();
+}
+function val(id) { var e = el(id); return e ? e.value : ''; }
+function numv(id) { return parseFloat(val(id)) || 0; }
+
+/* ---------- เปิดฟอร์มตามชนิดรายการ ---------- */
+function openAnyTx(id) {
+  var t = find(S.data.txs, id), x = t && t.debtId ? debt(t.debtId) : null;
+  if (!t) {
+    var hit = findTx(id); if (!hit) { toast('ไม่พบรายการนี้'); return; }
+    // อยู่ต่างเดือน: เปลี่ยนไปเดือนนั้นก่อน แล้วค่อยเปิดฟอร์ม (ให้ได้ข้อมูลครบ)
+    S.pendingOpen = id; toast('กำลังเปิดเดือน ' + monLabel(hit.q.date.slice(0, 7)));
+    S.data = null; load(hit.q.date.slice(0, 7)); return;
+  }
+  if (x && x.kind === K_LOAN) { if (t.type === 'รายรับ') openDraw(x, t); else openLoanPay(x, t.billId, t); return; }
+  if (x && x.kind === K_INST && t.type !== 'รายรับ') { openInstPay(x, t.billId, t); return; }
+  openTx(t);
 }
 
 /* ---------- actions ---------- */
@@ -336,46 +752,89 @@ var ACT = {
   close: closeSheet,
   settings: openSettings,
   connect: connect,
+  month: function (k) { shiftMonth(Number(k)); },
+  back: function () { S.detail = null; S.extra = 0; S.showAll = {}; render(); window.scrollTo(0, 0); },
+  detail: function (id) { S.detail = id; S.extra = 0; S.showAll = {}; render(); window.scrollTo(0, 0); },
+  extra: function (v) { S.extra = Number(v) || 0; render(); },
+  toggle: function (k) { S.showAll[k] = !S.showAll[k]; render(); },
   refresh: function () { closeSheet(); load(S.month); },
   disconnect: function () { if (!confirm('ลบการเชื่อมต่อในเครื่องนี้? (ข้อมูลใน Google Sheets ไม่หาย)')) return; closeSheet(); lsDel(CFG_KEY); clearCache(); S.data = null; vSetup(); },
-  add: function () { openTx(null); },
+  add: function () { if (S.detail) { ACT.debtPay(S.detail); return; } openTx(null); },
   go: function (id) { setTab(id); },
-  tx: function (id) { openTx(find(S.data.txs, id)); },
+  tx: function (id) { openAnyTx(id); },
   bill: function (id) {
     var b = find(S.data.bills, id); if (!b) return;
-    if (b.paid) openTx(find(S.data.txs, b.txIds[0]));
-    else openTx(null, { type: 'รายจ่าย', cat: b.cat, amt: b.amt || '', note: b.name, billId: b.id, debtId: b.debtId });
+    if (b.paid) { openAnyTx(b.txIds[0]); return; }
+    var x = b.debtId ? debt(b.debtId) : null;
+    if (x && x.kind === K_LOAN) { openLoanPay(x, b.id); return; }
+    if (x && x.kind === K_INST) { openInstPay(x, b.id); return; }
+    openTx(null, { type: 'รายจ่าย', cat: b.cat, amt: b.amt || '', note: b.name, billId: b.id });
   },
   billEdit: function (id) { openBillForm(id); },
-  debtEdit: function (id) { openDebtForm(id); },
-  debtPay: function (id) {
-    var x = find(S.data.debts, id); var b = S.data.bills.filter(function (z) { return z.debtId === id; })[0];
-    openTx(null, { type: 'รายจ่าย', cat: b ? b.cat : 'ชำระหนี้', amt: (b && b.amt) || x.monthly || '', note: x.name, billId: b ? b.id : '', debtId: id });
-  },
-  ftype: function (id) { grab(); if (F.type !== id) { F.type = id; F.cat = ''; if (id === 'รายรับ') { F.billId = ''; F.debtId = ''; F.principal = null; } } drawTx(); },
+  debtEdit: function (id) { F = {}; openDebtForm(id); },
+  dkind: function (k) { F.newKind = k; openDebtForm(''); },
+  debtPay: function (id) { var x = debt(id); if (x.kind === K_LOAN) openLoanPay(x); else openInstPay(x); },
+  draw: function (id) { openDraw(debt(id)); },
+  itemEdit: function (id) { openItemForm(id); },
+  ftype: function (id) { grab(); if (F.type !== id) { F.type = id; F.cat = ''; if (id === 'รายรับ') F.billId = ''; } drawTx(); },
   fcat: function (id) { grab(); F.cat = id; drawTx(); },
   fsave: function () {
     grab(); var a = parseFloat(F.amt);
     if (!(a > 0)) { toast('ใส่จำนวนเงิน'); return; } if (!F.cat) { toast('เลือกหมวด'); return; } if (!F.date) { toast('ใส่วันที่'); return; }
     var exp = F.type === 'รายจ่าย';
-    var o = { id: F.id, date: F.date, type: F.type, cat: F.cat, acc: F.acc, amt: a, note: F.note, billId: exp ? F.billId : '', debtId: exp ? F.debtId : '',
-      principal: (exp && F.debtId && F.principal !== null && F.principal !== '') ? parseFloat(F.principal) : '' };
+    var o = { id: F.id, date: F.date, type: F.type, cat: F.cat, acc: F.acc, amt: a, note: F.note, billId: exp ? F.billId : '', debtId: '' };
+    closeSheet(); write('saveTxn', [o, S.month]);
+  },
+  loanSave: function () {
+    grab(); var a = parseFloat(F.amt), s = loanSplit();
+    if (!(a > 0)) { toast('ใส่จำนวนเงิน'); return; } if (!F.date) { toast('ใส่วันที่'); return; }
+    if (!s.ok) { toast('ต้น + ดอก + ดอกค้าง ต้องเท่ากับยอดจ่าย'); return; }
+    var b = F.billId ? find(S.data.bills, F.billId) : null;
+    var o = { id: F.id, date: F.date, type: 'รายจ่าย', cat: b ? b.cat : (F.cat || 'ชำระหนี้'), acc: F.acc, amt: a, note: F.note, billId: F.billId, debtId: F.debtId, principal: s.P, interest: s.I, arrPaid: s.AP };
+    closeSheet(); write('saveTxn', [o, S.month]);
+  },
+  instSave: function () {
+    grab(); var items = {}, tot = 0;
+    Object.keys(F.sel).forEach(function (k) { var v = parseFloat(F.sel[k].amt) || 0; if (F.sel[k].on && v > 0) { items[k] = r2(v); tot += v; } });
+    tot = r2(tot);
+    if (!(tot > 0)) { toast('ติ๊กอย่างน้อย 1 รายการ'); return; } if (!F.date) { toast('ใส่วันที่'); return; }
+    var b = F.billId ? find(S.data.bills, F.billId) : null;
+    var o = { id: F.id, date: F.date, type: 'รายจ่าย', cat: b ? b.cat : (F.cat || 'ชำระหนี้'), acc: F.acc, amt: tot, note: F.note, billId: F.billId, debtId: F.debtId, items: items };
+    closeSheet(); write('saveTxn', [o, S.month]);
+  },
+  drawSave: function () {
+    grab(); var a = parseFloat(F.amt);
+    if (!(a > 0)) { toast('ใส่จำนวนเงิน'); return; }
+    var o = { id: F.id, date: F.date, type: 'รายรับ', cat: 'เบิกเงินกู้', acc: F.acc, amt: a, note: F.note, debtId: F.debtId };
     closeSheet(); write('saveTxn', [o, S.month]);
   },
   fdel: function () { if (!confirm('ลบรายการนี้?')) return; closeSheet(); write('deleteTxn', [F.id, S.month], 'ลบแล้ว'); },
   bsave: function (id) {
-    var name = el('bName').value.trim(); if (!name) { toast('ใส่ชื่อบิล'); return; }
-    var o = { id: id, name: name, amt: parseFloat(el('bAmt').value) || 0, cat: el('bCat').value, debtId: el('bDebt').value };
+    var name = val('bName').trim(); if (!name) { toast('ใส่ชื่อบิล'); return; }
+    var o = { id: id, name: name, amt: numv('bAmt'), cat: val('bCat'), debtId: val('bDebt') };
     closeSheet(); write('saveBill', [o, S.month]);
   },
   bdel: function (id) { if (!confirm('ลบบิลนี้? (ประวัติการจ่ายยังอยู่)')) return; closeSheet(); write('saveBill', [{ id: id, active: false }, S.month], 'ลบบิลแล้ว'); },
   dsave: function (id) {
-    var name = el('dName').value.trim(); if (!name) { toast('ใส่ชื่อหนี้'); return; }
-    var x = id ? find(S.data.debts, id) : null; var bal = parseFloat(el('dBal').value) || 0;
-    var o = { id: id, name: name, lender: el('dLender').value.trim(), balance: bal, rate: el('dRate').value.trim(), monthly: parseFloat(el('dMon').value) || 0, note: el('dNote').value.trim(), resetBal: !x || Math.abs(bal - x.balance) > 0.004 };
+    var name = val('dName').trim(); if (!name) { toast('ใส่ชื่อหนี้'); return; }
+    var x = id ? debt(id) : null, kind = x ? x.kind : F.newKind;
+    var o = { id: id, kind: kind, name: name, lender: val('dLender').trim(), note: val('dNote').trim(), limit: numv('dLimit'), dueDay: numv('dDue') || 1 };
+    if (kind === K_LOAN) {
+      o.balance = numv('dBal'); o.arrears = numv('dArr'); o.fees = numv('dFees'); o.asOf = val('dAsOf');
+      o.rate = numv('dRate'); o.rateFrom = val('dRateFrom'); o.monthly = numv('dMon'); o.method = val('dMethod'); o.termEnd = val('dTerm');
+      o.resetBal = !x || Math.abs(o.balance - x.balance) > 0.004 || Math.abs(o.arrears - x.arrears) > 0.004 || Math.abs(o.fees - x.fees) > 0.004;
+    } else { o.monthly = x ? x.monthly : 0; o.rate = 0; }
     closeSheet(); write('saveDebt', [o, S.month]);
   },
-  ddel: function (id) { if (!confirm('ปิดหนี้ก้อนนี้? (ซ่อนจากรายการ)')) return; closeSheet(); write('saveDebt', [{ id: id, active: false }, S.month], 'ปิดหนี้แล้ว'); }
+  ddel: function (id) { if (!confirm('ปิดหนี้ก้อนนี้? (ซ่อนจากรายการ ประวัติยังอยู่ในชีต)')) return; closeSheet(); S.detail = null; write('saveDebt', [{ id: id, active: false }, S.month], 'ปิดหนี้แล้ว'); },
+  itemSave: function (id) {
+    var name = val('iName').trim(); if (!name) { toast('ใส่ชื่อรายการ'); return; }
+    var n = Math.max(1, parseInt(val('iN'), 10) || 1), price = numv('iPrice'), per = numv('iPer') || (price ? r2(price / n) : 0);
+    if (!(per > 0)) { toast('ใส่ราคาหรือค่างวด'); return; }
+    var o = { id: id, debtId: S.detail, name: name, date: val('iDate'), price: price, n: n, per: per, total: r2(per * n), paidBase: numv('iPaid'), note: val('iNote').trim() };
+    closeSheet(); write('saveItem', [o, S.month]);
+  },
+  itemDel: function (id) { if (!confirm('ลบรายการผ่อนนี้?')) return; closeSheet(); write('saveItem', [{ id: id, active: false }, S.month], 'ลบแล้ว'); }
 };
 
 document.addEventListener('click', function (e) {
@@ -385,12 +844,34 @@ document.addEventListener('click', function (e) {
   if (e.target === el('ov')) closeSheet();
 });
 document.addEventListener('change', function (e) {
-  var c = e.target.getAttribute('data-chg'); if (!c) return; grab();
-  if (c === 'bill' && F.billId) { var b = find(S.data.bills, F.billId); if (b) { if (b.debtId) F.debtId = b.debtId; F.cat = b.cat; if (!F.note) F.note = b.name; if (!F.amt && b.amt) F.amt = b.amt; } }
-  drawTx();
+  var c = e.target.getAttribute('data-chg'); if (!c) return;
+  grab();
+  if (c === 'bill' && F.mode === 'tx' && F.billId) {
+    var b = find(S.data.bills, F.billId), x = b && b.debtId ? debt(b.debtId) : null;
+    if (x && !F.id) { if (x.kind === K_LOAN) openLoanPay(x, b.id); else openInstPay(x, b.id); return; }
+    if (b) { F.cat = b.cat; if (!F.note) F.note = b.name; if (!F.amt && b.amt) F.amt = b.amt; }
+    drawTx(); return;
+  }
+  if (c === 'manual') {
+    var s = loanSplit(); F.manual = e.target.checked;
+    if (F.manual) { F.P = s.P; F.I = s.I; F.AP = 0; }
+    drawLoanPay(); return;
+  }
+  if (c === 'inst') { drawInstPay(); return; }
+});
+document.addEventListener('input', function (e) {
+  if (!e.target.getAttribute('data-live')) return;
+  if (F.mode === 'loan') {
+    var keep = e.target.id, pos = null; grab();
+    try { pos = e.target.selectionStart; } catch (er) {}
+    drawLoanPay();  // วาดใหม่แล้วคืนโฟกัสช่องเดิม
+    var ne = el(keep); if (ne) { ne.focus(); try { ne.setSelectionRange(pos, pos); } catch (er) {} }
+  } else if (F.mode === 'inst') {
+    grab(); var t = el('instSum'); if (t) t.textContent = '฿' + fmt(instTotal());
+  } else if (F.mode === 'item') itemCalc();
 });
 window.addEventListener('online', function () { if (S.cfg) load(S.month); });
-document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible' && S.cfg && S.data) load(S.month); });
+document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible' && S.cfg && S.data && !el('ov').classList.contains('show')) load(S.month); });
 
 if ('serviceWorker' in navigator) { window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); }); }
 
